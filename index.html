@@ -181,6 +181,41 @@ section{position:relative}
 .feat .lnk svg{width:15px;height:15px;stroke:#fff;stroke-width:2.4;fill:none;transition:transform .2s}
 .feat:hover .lnk svg{transform:translateX(4px)}
 
+/* ── rig info card ── */
+.rigcard{position:absolute;left:49%;bottom:5%;transform:translateX(-50%);width:252px;background:rgba(255,255,255,.95);
+  border:1px solid var(--line);border-radius:13px;padding:13px 15px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.rigcard .rc-t{font-size:11px;font-weight:800;letter-spacing:.09em;color:var(--blue-d)}
+.rigcard .rc-r{display:flex;justify-content:space-between;font-size:12px;margin-top:8px;color:var(--mut);font-weight:600}
+.rigcard .rc-r b{color:var(--ink);font-weight:700}
+.rigcard .rc-r b.on{color:var(--up);display:flex;align-items:center;gap:5px}
+.rigcard .rc-r b.on i{width:6px;height:6px;border-radius:50%;background:var(--up);display:block}
+
+/* ── agent network ── */
+.agents-sec{background:var(--bg2);border-top:1px solid var(--line)}
+.agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.agent{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;transition:.2s;display:flex;flex-direction:column}
+.agent:hover{transform:translateY(-3px);box-shadow:var(--shadow-s);border-color:var(--blue);background:#fff}
+.agent .atop{display:flex;gap:12px;align-items:center}
+.agent .aav{width:50px;height:50px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-family:'Space Grotesk',sans-serif;font-size:16px;position:relative}
+.agent .aav .on{position:absolute;right:-3px;bottom:-3px;width:14px;height:14px;border-radius:50%;background:var(--up);border:2.5px solid var(--panel)}
+.agent:hover .aav .on{border-color:#fff}
+.agent .anm b{font-size:15px;font-weight:800;display:block;line-height:1.2}
+.agent .anm .ac{font-size:12px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:5px;margin-top:2px}
+.agent .aspec{margin-top:14px;font-size:11.5px;font-weight:700;color:var(--blue-d);background:var(--sky);
+  border:1px solid #d5e6ff;padding:6px 11px;border-radius:99px;align-self:flex-start}
+.agent .ameta{margin-top:14px;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--ink2);font-weight:600;flex:1}
+.agent .ameta .row{display:flex;justify-content:space-between;align-items:center}
+.agent .ameta .row b{color:var(--ink);font-weight:700}
+.agent .stars{color:var(--amber);font-size:12px;letter-spacing:1.5px}
+.agent .afoot{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.agent .price{font-size:11.5px;color:var(--mut);font-weight:600}
+.agent .price b{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);font-weight:700;display:block}
+.agent .hire{font-size:12.5px;font-weight:800;color:#fff;background:linear-gradient(135deg,#1667E6,#0B4ED1);padding:10px 15px;border-radius:10px;transition:transform .2s}
+.agent .hire:hover{transform:translateY(-1px)}
+@media(max-width:1080px){.agent-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.agent-grid{grid-template-columns:1fr}}
+
 /* ── intelligence row ── */
 .intel{background:var(--bg2);border-top:1px solid var(--line)}
 .intel-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:18px}
@@ -397,10 +432,10 @@ footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line
 <!-- hero -->
 <header class="hero" id="top"><div class="wrap hero-grid">
   <div class="hero-copy">
-    <span class="eyebrow"><span class="pulse"></span>Connecting Global Energy</span>
+    <span class="eyebrow"><span class="pulse"></span>Global Oil &amp; Gas · Local Agents in 150,000+ Cities</span>
     <h1>World Oil<br><span class="g">Portal</span></h1>
-    <p class="tag">The World's Connected Oil &amp; Gas Marketplace.</p>
-    <p class="sub">Infrastructure. Equipment. Logistics. People. One international ecosystem linking buyers, sellers, service providers and local agents across the globe.</p>
+    <p class="tag">Every oilfield deal — sourced, inspected and delivered by a local agent.</p>
+    <p class="sub">The global marketplace for oil &amp; gas equipment, rigs, rentals and logistics — where a verified local agent in any city helps you <b>find exactly what you need and get it done</b>.</p>
     <form class="search" onsubmit="return false">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
       <input placeholder="Search infrastructure, equipment, companies, tenders…" aria-label="Search">
@@ -419,14 +454,18 @@ footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line
     <canvas id="globe"></canvas>
     <div class="hub">
       <span class="ring"></span><span class="ring"></span><span class="ring"></span>
-      <span class="core"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#1667E6" stroke-width="1.4"/><path d="M3 12h18M12 3c2.6 2.5 4 5.7 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.7-4-9s1.4-6.5 4-9z" stroke="#1667E6" stroke-width="1.4"/></svg></span>
+    </div>
+    <div class="rigcard">
+      <div class="rc-t">OFFSHORE DRILLING PLATFORM</div>
+      <div class="rc-r"><span>Location</span><b>Gulf of Mexico</b></div>
+      <div class="rc-r"><span>Status</span><b class="on"><i></i>Active · Agent assigned</b></div>
     </div>
     <div class="pin" style="left:6%;top:20%"><span class="av" style="background:linear-gradient(135deg,#1667E6,#0B4ED1)">HO</span><div><b>Houston</b><span><i></i>Agent Online</span></div></div>
-    <div class="pin" style="left:46%;top:6%;animation-delay:.6s"><span class="av" style="background:linear-gradient(135deg,#F2A017,#D8890A)">LN</span><div><b>London</b><span><i></i>Agent Online</span></div></div>
+    <div class="pin" style="left:36%;top:4%;animation-delay:.6s"><span class="av" style="background:linear-gradient(135deg,#F2A017,#D8890A)">LN</span><div><b>London</b><span><i></i>Agent Online</span></div></div>
     <div class="pin alt" style="right:2%;top:44%;animation-delay:1s"><span class="av" style="background:linear-gradient(135deg,#1667E6,#0B4ED1)">DB</span><div><b>Dubai</b><span><i></i>278 Agents</span></div></div>
     <div class="pin" style="left:1%;top:60%;animation-delay:1.4s"><span class="av" style="background:linear-gradient(135deg,#12A150,#0c7a3c)">RJ</span><div><b>Rio de Janeiro</b><span><i></i>Agent Online</span></div></div>
     <div class="pin alt p-hide" style="right:8%;bottom:6%;animation-delay:.9s"><span class="av" style="background:linear-gradient(135deg,#1667E6,#0B4ED1)">SG</span><div><b>Singapore</b><span><i></i>362 Agents</span></div></div>
-    <div class="pin p-hide" style="left:34%;bottom:2%;animation-delay:1.7s"><span class="av" style="background:linear-gradient(135deg,#F2A017,#D8890A)">CT</span><div><b>Cape Town</b><span><i></i>Agent Online</span></div></div>
+    <div class="pin p-hide" style="left:9%;bottom:16%;animation-delay:1.7s"><span class="av" style="background:linear-gradient(135deg,#F2A017,#D8890A)">CT</span><div><b>Cape Town</b><span><i></i>Agent Online</span></div></div>
     <div class="reach">
       <div class="rt">GLOBAL REACH</div>
       <p>Local verified experts in every major city — ready to inspect, ship and close deals for you.</p>
@@ -482,6 +521,57 @@ footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line
     <a class="feat rv" href="#"><img src="img/equipment.jpg" alt="Equipment marketplace"><span class="fi"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M5 8v10l7 3 7-3V8"/></svg></span><h3>Equipment Marketplace</h3><p>Buy, sell or rent certified equipment from trusted, verified suppliers.</p><span class="lnk">View Equipment <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
     <a class="feat rv" href="#"><img src="img/network.jpg" alt="Our global network"><span class="fi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><h3>Our Global Network</h3><p>Local verified experts in every major city to support your business.</p><span class="lnk">View Network <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
     <a class="feat rv" href="#"><img src="img/analytics.jpg" alt="Market intelligence"><span class="fi"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Market Intelligence</h3><p>Real-time oil prices, market insights and industry analytics.</p><span class="lnk">View Analytics <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  </div>
+</div></section>
+
+<!-- agent network -->
+<section class="sec agents-sec" id="agents"><div class="wrap">
+  <div class="sec-head center rv">
+    <span class="kick">The Agent Network</span>
+    <h2>A local agent in every city — who finds it and gets it done</h2>
+    <p>Choose a country, a city and a specialist. Your verified agent sources the equipment, inspects it on site, arranges logistics and closes the deal for you — anywhere in the world.</p>
+  </div>
+  <div class="agent-grid">
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#1667E6,#0B4ED1)">AF<span class="on"></span></span><span class="anm"><b>Ahmed Al-Farsi</b><span class="ac">📍 Dubai, UAE</span></span></div>
+      <span class="aspec">Equipment sourcing &amp; inspection</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 4.9</b></div>
+        <div class="row"><span>Deals closed</span><b>340</b></div>
+        <div class="row"><span>Languages</span><b>EN · AR</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$150</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#12A150,#0c7a3c)">JW<span class="on"></span></span><span class="anm"><b>James Whitfield</b><span class="ac">📍 Houston, USA</span></span></div>
+      <span class="aspec">Drilling equipment &amp; auctions</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 5.0</b></div>
+        <div class="row"><span>Deals closed</span><b>415</b></div>
+        <div class="row"><span>Languages</span><b>EN · ES</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$200</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#F2A017,#D8890A)">WC<span class="on"></span></span><span class="anm"><b>Wei Chen</b><span class="ac">📍 Singapore</span></span></div>
+      <span class="aspec">Logistics &amp; customs clearance</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 4.8</b></div>
+        <div class="row"><span>Deals closed</span><b>298</b></div>
+        <div class="row"><span>Languages</span><b>EN · 中文</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$120</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#7c4dff,#5a2ee8)">SM<span class="on"></span></span><span class="anm"><b>Sofia Marques</b><span class="ac">📍 Rio de Janeiro, BR</span></span></div>
+      <span class="aspec">Field inspection &amp; repair</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 4.9</b></div>
+        <div class="row"><span>Deals closed</span><b>176</b></div>
+        <div class="row"><span>Languages</span><b>PT · EN</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$110</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
   </div>
 </div></section>
 
@@ -741,11 +831,52 @@ import * as THREE from 'three';
   var pairs=[[0,2],[2,4],[4,5],[1,8],[3,4],[5,6],[2,3],[0,1],[7,4],[9,2]];
   pairs.forEach(function(p){arc(cities[p[0]],cities[p[1]]);});
 
+  // ── 3D offshore oil rig (static hero object in front of the spinning globe) ──
+  var rig = new THREE.Group();
+  var steel = new THREE.MeshBasicMaterial({color:0x2a3c54});
+  var steelD = new THREE.MeshBasicMaterial({color:0x1d2c40});
+  var amber = new THREE.MeshBasicMaterial({color:0xF2A017});
+  var lineMat = new THREE.LineBasicMaterial({color:0x2a3c54, transparent:true, opacity:.95});
+  // platform deck
+  var deck = new THREE.Mesh(new THREE.BoxGeometry(0.66,0.11,0.66), new THREE.MeshBasicMaterial({color:0x33465f}));
+  rig.add(deck);
+  var deckTop = new THREE.Mesh(new THREE.BoxGeometry(0.68,0.03,0.68), steel); deckTop.position.y=0.07; rig.add(deckTop);
+  // support columns + pontoons
+  [[-0.24,-0.24],[0.24,-0.24],[-0.24,0.24],[0.24,0.24]].forEach(function(p){
+    var col=new THREE.Mesh(new THREE.CylinderGeometry(0.035,0.05,0.62,10), steelD);
+    col.position.set(p[0],-0.37,p[1]); rig.add(col);
+    var pon=new THREE.Mesh(new THREE.BoxGeometry(0.14,0.06,0.14), steelD);
+    pon.position.set(p[0],-0.66,p[1]); rig.add(pon);
+  });
+  // derrick lattice tower (tapered square)
+  function corner(l,i){var hw=0.12+(0.03-0.12)*l, y=0.1+(1.02-0.1)*l,
+    sx=(i===0||i===3)?-1:1, sz=(i<2)?-1:1; return new THREE.Vector3(sx*hw,y,sz*hw);}
+  var seg=[], levels=7;
+  for(var l=0;l<levels;l++){var a=l/levels,b=(l+1)/levels;
+    for(var i=0;i<4;i++){seg.push(corner(a,i),corner(b,i));seg.push(corner(a,i),corner(a,(i+1)%4));seg.push(corner(a,i),corner(b,(i+1)%4));}}
+  rig.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(seg), lineMat));
+  // crown + flare
+  var crown=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.07,0.11), steel); crown.position.y=1.05; rig.add(crown);
+  var flame=new THREE.Mesh(new THREE.ConeGeometry(0.05,0.16,12), amber); flame.position.y=1.2; rig.add(flame);
+  var flareGlow=new THREE.Mesh(new THREE.SphereGeometry(0.11,12,12),
+    new THREE.MeshBasicMaterial({color:0xF2A017,transparent:true,opacity:0.25})); flareGlow.position.y=1.22; rig.add(flareGlow);
+  // helipad
+  var pad=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.02,20), new THREE.MeshBasicMaterial({color:0x243547}));
+  pad.position.set(0.2,0.09,0.2); rig.add(pad);
+  // base activity disc on the ocean
+  var disc=new THREE.Mesh(new THREE.CircleGeometry(0.5,40),
+    new THREE.MeshBasicMaterial({color:0x1667E6,transparent:true,opacity:0.08}));
+  disc.rotation.x=-Math.PI/2; disc.position.y=-0.68; rig.add(disc);
+  rig.scale.setScalar(1.04); rig.position.set(0,-0.34,1.95);
+  scene.add(rig);
+
   var t=0;
   function loop(){
     t+=0.0016;
     if(!rm) group.rotation.y += 0.0016;
     pulses.forEach(function(p){var u=(t*0.35+p.off)%1; var v=p.curve.getPoint(u); p.mesh.position.copy(v);});
+    if(!rm){ rig.position.y = -0.32 + Math.sin(t*1.6)*0.012;
+      var s=1+Math.sin(t*7)*0.14; flame.scale.set(1,s,1); flareGlow.scale.setScalar(1+Math.sin(t*7)*0.18);}
     renderer.render(scene,cam);
     requestAnimationFrame(loop);
   }
