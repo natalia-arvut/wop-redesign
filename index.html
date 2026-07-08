@@ -22,11 +22,11 @@
   --wrap:1280px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;line-height:1.6;
+body{background:var(--bg);color:var(--ink);font-family:'Satoshi',system-ui,sans-serif;line-height:1.6;
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-h1,h2,h3,.disp{font-family:'Space Grotesk','Manrope',sans-serif;letter-spacing:-.02em}
+h1,h2,h3,.disp{font-family:'Clash Display','Satoshi',sans-serif;letter-spacing:-.02em}
 .mono{font-family:'JetBrains Mono',monospace}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 svg{display:block}
@@ -49,7 +49,7 @@ svg{display:block}
 .brand .mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(150deg,#1667E6,#0B4ED1);
   display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px -4px rgba(22,103,230,.6)}
 .brand .mark svg{width:24px;height:24px}
-.brand .bt b{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;letter-spacing:.02em;display:block;line-height:1}
+.brand .bt b{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;letter-spacing:.02em;display:block;line-height:1}
 .brand .bt span{font-size:9.5px;letter-spacing:.24em;color:var(--mut);font-weight:600;white-space:nowrap}
 .nav-links{display:flex;gap:22px;margin-left:6px}
 .nav-links a{display:flex;flex-direction:column;line-height:1.2;padding:6px 0;position:relative;white-space:nowrap}
@@ -70,6 +70,10 @@ svg{display:block}
   font-size:13.5px;font-weight:700;box-shadow:0 10px 24px -8px rgba(22,103,230,.7);transition:transform .2s,box-shadow .2s;white-space:nowrap}
 .btn-ghost{white-space:nowrap}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 30px -8px rgba(22,103,230,.8)}
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;pointer-events:none;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);animation:sheen 5s ease-in-out infinite}
+@keyframes sheen{0%,58%{left:-70%}78%,100%{left:140%}}
 .nav-burger{display:none}
 
 /* ── hero ── */
@@ -97,13 +101,13 @@ svg{display:block}
 .search .go{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1667E6,#0B4ED1);
   display:flex;align-items:center;justify-content:center;flex:none}
 .search .go svg{stroke:#fff}
-.stats{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
-.stat{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;
-  padding:12px 16px;box-shadow:var(--shadow-s)}
-.stat .si{width:34px;height:34px;border-radius:9px;background:var(--sky);display:flex;align-items:center;justify-content:center;flex:none}
-.stat .si svg{width:18px;height:18px;stroke:var(--blue);stroke-width:2;fill:none}
-.stat b{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;display:block;line-height:1}
-.stat span{font-size:11.5px;color:var(--mut);font-weight:600}
+.statbar{margin-top:26px;display:flex;background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow-s);overflow:hidden;max-width:600px}
+.statbar .s{flex:1;padding:15px 18px}
+.statbar .s+.s{border-left:1px solid var(--line2)}
+.statbar b{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:600;display:block;line-height:1;
+  letter-spacing:-.01em}
+.statbar span{font-size:11px;color:var(--mut);font-weight:600;margin-top:5px;display:block;letter-spacing:.01em}
 .hero .watch{margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--ink)}
 .hero .watch .pl{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--line);
   display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-s)}
@@ -124,7 +128,7 @@ svg{display:block}
 .pin{position:absolute;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.94);border:1px solid var(--line);
   border-radius:12px;padding:6px 12px 6px 6px;box-shadow:var(--shadow-s);animation:float 6s ease-in-out infinite;backdrop-filter:blur(6px)}
 .pin .av{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:800;font-size:12px;font-family:'Space Grotesk',sans-serif}
+  color:#fff;font-weight:800;font-size:12px;font-family:'Clash Display',sans-serif}
 .pin b{font-size:12.5px;font-weight:800;display:block;line-height:1.1;color:var(--ink)}
 .pin span{font-size:10.5px;color:var(--up);font-weight:700;display:flex;align-items:center;gap:4px}
 .pin span i{width:6px;height:6px;border-radius:50%;background:var(--up);display:block}
@@ -149,20 +153,53 @@ section{position:relative}
 
 /* ── ecosystem chain ── */
 .eco{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.chain{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:960px;margin:0 auto 30px}
-.chain .lk{display:flex;align-items:center;gap:10px}
-.chain .lk .p{background:var(--sky);color:var(--blue-d);font-weight:700;font-size:13.5px;padding:9px 16px;border-radius:99px;
-  border:1px solid #d5e6ff}
-.chain .lk .ar{color:var(--mut);font-size:13px}
-.eco-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-.eco-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center;
-  transition:.2s;cursor:pointer}
-.eco-card:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:var(--shadow-s);background:#fff}
-.eco-card .ei{width:44px;height:44px;border-radius:12px;margin:0 auto 12px;background:linear-gradient(150deg,#eaf2ff,#dbeafe);
-  display:flex;align-items:center;justify-content:center}
-.eco-card .ei svg{width:22px;height:22px;stroke:var(--blue-d);stroke-width:1.9;fill:none}
-.eco-card b{font-size:13.5px;font-weight:800;display:block}
-.eco-card span{font-size:11px;color:var(--mut);font-weight:600}
+.eco-head{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;align-items:end;margin-bottom:32px}
+.eco-head h2{font-family:'Clash Display',sans-serif;font-size:clamp(28px,3.6vw,44px);font-weight:600;margin-top:12px;line-height:1.04}
+.eco-head p{font-size:15.5px;color:var(--ink2);line-height:1.6}
+.bento-feat{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.bcard{border-radius:20px;padding:26px;position:relative;overflow:hidden;display:flex;flex-direction:column;
+  min-height:186px;border:1px solid var(--line);transition:transform .25s,box-shadow .25s,border-color .25s;cursor:pointer}
+.bcard .bi{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(150deg,#eaf2ff,#dbeafe);margin-bottom:auto}
+.bcard .bi svg{width:27px;height:27px;stroke:var(--blue-d);stroke-width:1.8;fill:none}
+.bcard h3{font-family:'Clash Display',sans-serif;font-size:23px;font-weight:600;margin-top:18px;letter-spacing:-.01em}
+.bcard p{font-size:13.5px;margin-top:7px;color:var(--ink2);line-height:1.5;max-width:38ch}
+.bcard .go{margin-top:15px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--blue-d)}
+.bcard .go svg{width:15px;height:15px;stroke-width:2.4;fill:none;stroke:currentColor;transition:transform .2s}
+.bcard:hover .go svg{transform:translateX(5px)}
+.bcard.light{background:var(--panel)}
+.bcard.light:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:var(--shadow)}
+.bcard.blue{background:linear-gradient(140deg,#1a73ff,#0B4ED1);color:#fff;border:none;
+  box-shadow:0 24px 50px -22px rgba(22,103,230,.75)}
+.bcard.blue::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)}
+.bcard.blue .bi{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3)}
+.bcard.blue .bi svg{stroke:#fff}
+.bcard.blue p{color:#dbe8ff}
+.bcard.blue .go{color:#fff}
+.bcard.blue:hover{transform:translateY(-4px);box-shadow:0 30px 60px -22px rgba(22,103,230,.85)}
+.bavs{display:flex;margin-top:16px;align-items:center;gap:10px}
+.bavs .row{display:flex}
+.bavs .row span{width:34px;height:34px;border-radius:50%;border:2.5px solid #fff;margin-left:-10px;display:flex;
+  align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;font-family:'Clash Display',sans-serif;
+  box-shadow:0 4px 10px -3px rgba(10,37,64,.3)}
+.bavs .row span:first-child{margin-left:0}
+.bavs .more{font-size:12.5px;color:var(--mut);font-weight:700}
+.bento-small{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px 16px;transition:transform .22s,box-shadow .22s,border-color .22s;position:relative;overflow:hidden;cursor:pointer}
+.scard::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;transform:scaleX(0);transform-origin:left;
+  background:linear-gradient(90deg,#1667E6,#F2A017);transition:transform .3s}
+.scard:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:var(--shadow-s);background:#fff}
+.scard:hover::after{transform:scaleX(1)}
+.scard .si{width:42px;height:42px;border-radius:12px;background:linear-gradient(150deg,#eaf2ff,#dbeafe);
+  display:flex;align-items:center;justify-content:center;margin-bottom:13px;transition:.22s}
+.scard:hover .si{background:linear-gradient(150deg,#1667E6,#0B4ED1)}
+.scard .si svg{width:21px;height:21px;stroke:var(--blue-d);stroke-width:1.8;fill:none;transition:.22s}
+.scard:hover .si svg{stroke:#fff}
+.scard b{font-size:14px;font-weight:700;display:block}
+.scard span{font-size:11px;color:var(--mut);font-weight:600}
+@media(max-width:1080px){.eco-head{grid-template-columns:1fr;gap:14px;align-items:start}.bento-small{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.bento-feat{grid-template-columns:1fr}.bento-small{grid-template-columns:repeat(2,1fr)}}
 
 /* ── feature cards ── */
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -197,7 +234,7 @@ section{position:relative}
 .agent:hover{transform:translateY(-3px);box-shadow:var(--shadow-s);border-color:var(--blue);background:#fff}
 .agent .atop{display:flex;gap:12px;align-items:center}
 .agent .aav{width:50px;height:50px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:800;font-family:'Space Grotesk',sans-serif;font-size:16px;position:relative}
+  color:#fff;font-weight:800;font-family:'Clash Display',sans-serif;font-size:16px;position:relative}
 .agent .aav .on{position:absolute;right:-3px;bottom:-3px;width:14px;height:14px;border-radius:50%;background:var(--up);border:2.5px solid var(--panel)}
 .agent:hover .aav .on{border-color:#fff}
 .agent .anm b{font-size:15px;font-weight:800;display:block;line-height:1.2}
@@ -210,7 +247,7 @@ section{position:relative}
 .agent .stars{color:var(--amber);font-size:12px;letter-spacing:1.5px}
 .agent .afoot{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
 .agent .price{font-size:11.5px;color:var(--mut);font-weight:600}
-.agent .price b{font-family:'Space Grotesk',sans-serif;font-size:16px;color:var(--ink);font-weight:700;display:block}
+.agent .price b{font-family:'Clash Display',sans-serif;font-size:16px;color:var(--ink);font-weight:700;display:block}
 .agent .hire{font-size:12.5px;font-weight:800;color:#fff;background:linear-gradient(135deg,#1667E6,#0B4ED1);padding:10px 15px;border-radius:10px;transition:transform .2s}
 .agent .hire:hover{transform:translateY(-1px)}
 @media(max-width:1080px){.agent-grid{grid-template-columns:repeat(2,1fr)}}
@@ -263,7 +300,7 @@ section{position:relative}
 .netband p.lead{margin-top:16px;font-size:16.5px;color:var(--ink2);max-width:48ch}
 .livemetrics{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:440px}
 .lm{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-s)}
-.lm b{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;display:block;line-height:1;color:var(--ink)}
+.lm b{font-family:'Clash Display',sans-serif;font-size:26px;font-weight:700;display:block;line-height:1;color:var(--ink)}
 .lm span{font-size:12px;color:var(--mut);font-weight:600}
 .lm .live{font-size:10px;color:var(--up);font-weight:800;letter-spacing:.1em;display:inline-flex;align-items:center;gap:5px;margin-bottom:8px}
 .lm .live i{width:6px;height:6px;border-radius:50%;background:var(--up);display:block;animation:blink 1.6s infinite}
@@ -287,10 +324,10 @@ section{position:relative}
   background:linear-gradient(90deg,#F2A017,#ffd67a);padding:5px 12px;border-radius:99px}
 .plan .vipbadge{position:absolute;top:-11px;left:22px;font-size:10px;font-weight:800;letter-spacing:.1em;color:#0a2540;
   background:linear-gradient(90deg,#F2A017,#ffd67a);padding:5px 12px;border-radius:99px}
-.pname{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700}
+.pname{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700}
 .pdesc{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:4px}
 .price-row{margin:16px 0;display:flex;align-items:baseline;gap:4px}
-.price-row .amt{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700}
+.price-row .amt{font-family:'Clash Display',sans-serif;font-size:34px;font-weight:700}
 .price-row .per{font-size:12.5px;color:var(--mut);font-weight:700}
 .plan.vip .per{color:#a9c4ea}
 .plan ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:20px;flex:1}
@@ -313,7 +350,7 @@ section{position:relative}
 .tcard p{font-size:13px;color:var(--ink2);margin-top:4px;line-height:1.5}
 .logos-lbl{text-align:center;font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--mut);text-transform:uppercase;margin-bottom:22px}
 .logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 42px}
-.logos span{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:#9db0c8;letter-spacing:.02em;
+.logos span{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;color:#9db0c8;letter-spacing:.02em;
   filter:grayscale(1);transition:.2s}
 .logos span:hover{color:var(--ink);filter:none}
 
@@ -410,7 +447,7 @@ footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line
 <!-- nav -->
 <nav class="nav"><div class="nav-in">
   <a class="brand" href="#top">
-    <span class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><path d="M3 12h18M12 3c2.6 2.5 4 5.7 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.7-4-9s1.4-6.5 4-9z" stroke="#fff" stroke-width="1.6"/></svg></span>
+    <span class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="1.5"/><path d="M3 11h16M11 3c2.4 2.3 3.6 5.1 3.6 8S13.4 16.7 11 19c-2.4-2.3-3.6-5.1-3.6-8S8.6 5.3 11 3z" stroke="#fff" stroke-width="1.3"/><path d="M18.6 13.4c1.6 1.9 2.3 3.2 2.3 4.4a2.35 2.35 0 11-4.7 0c0-1.2.8-2.5 2.4-4.4z" fill="#F2A017" stroke="#fff" stroke-width=".8"/></svg></span>
     <span class="bt"><b>WOP</b><span>WORLD OIL PORTAL</span></span>
   </a>
   <div class="nav-links">
@@ -441,11 +478,11 @@ footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line
       <input placeholder="Search infrastructure, equipment, companies, tenders…" aria-label="Search">
       <button class="go" aria-label="Search"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </form>
-    <div class="stats">
-      <div class="stat"><span class="si"><svg viewBox="0 0 24 24"><path d="M9 7h6M9 11h6M9 15h4"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg></span><div><b data-count="15000" data-suffix="+">0</b><span>Verified Companies</span></div></div>
-      <div class="stat"><span class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span><div><b data-count="190" data-suffix="+">0</b><span>Countries</span></div></div>
-      <div class="stat"><span class="si"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><b data-count="150000" data-suffix="+">0</b><span>Cities</span></div></div>
-      <div class="stat"><span class="si"><svg viewBox="0 0 24 24"><path d="M4 12l6 6L20 6"/></svg></span><div><b data-count="50000" data-suffix="+">0</b><span>Active Deals</span></div></div>
+    <div class="statbar">
+      <div class="s"><b data-count="15000" data-suffix="+">0</b><span>Verified Companies</span></div>
+      <div class="s"><b data-count="190" data-suffix="+">0</b><span>Countries</span></div>
+      <div class="s"><b data-count="150000" data-suffix="+">0</b><span>Cities</span></div>
+      <div class="s"><b data-count="50000" data-suffix="+">0</b><span>Active Deals</span></div>
     </div>
     <a class="watch" href="#network"><span class="pl"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>Watch Platform Overview</a>
   </div>
@@ -476,34 +513,43 @@ footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line
 
 <!-- ecosystem -->
 <section class="sec eco" id="ecosystem"><div class="wrap">
-  <div class="sec-head center rv">
-    <span class="kick">One Platform · Every Link In The Chain</span>
-    <h2>Not a marketplace. A global energy ecosystem.</h2>
-    <p>From the first equipment listing to the final delivery — every stage of the oil &amp; gas trade lives on one connected platform.</p>
+  <div class="eco-head rv">
+    <div>
+      <span class="kick">One platform · every link in the chain</span>
+      <h2>Not a marketplace.<br>A global energy ecosystem.</h2>
+    </div>
+    <p>From the first equipment listing to final delivery — sourcing, inspection, logistics, repair and settlement live on one connected platform, in every oil &amp; gas city on earth.</p>
   </div>
-  <div class="chain rv">
-    <div class="lk"><span class="p">Equipment</span><span class="ar">→</span></div>
-    <div class="lk"><span class="p">Rental</span><span class="ar">→</span></div>
-    <div class="lk"><span class="p">Auctions</span><span class="ar">→</span></div>
-    <div class="lk"><span class="p">Logistics</span><span class="ar">→</span></div>
-    <div class="lk"><span class="p">Inspection</span><span class="ar">→</span></div>
-    <div class="lk"><span class="p">Repair</span><span class="ar">→</span></div>
-    <div class="lk"><span class="p">Agents</span><span class="ar">→</span></div>
-    <div class="lk"><span class="p">Investments</span></div>
+  <div class="bento-feat rv">
+    <a class="bcard blue" href="#features">
+      <span class="bi"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M5 8v10l7 3 7-3V8"/></svg></span>
+      <h3>Global Marketplace</h3>
+      <p>Buy, sell and rent certified oil &amp; gas equipment from verified suppliers in 190+ countries — with an agent to inspect before you pay.</p>
+      <span class="go">Explore the marketplace <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="bcard light" href="#agents">
+      <span class="bi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+      <h3>Agent Network</h3>
+      <p>A verified local representative in every city — to source, inspect, ship and close deals on the ground, wherever you are.</p>
+      <div class="bavs"><div class="row">
+        <span style="background:linear-gradient(135deg,#1667E6,#0B4ED1)">AF</span>
+        <span style="background:linear-gradient(135deg,#12A150,#0c7a3c)">JW</span>
+        <span style="background:linear-gradient(135deg,#F2A017,#D8890A)">WC</span>
+        <span style="background:linear-gradient(135deg,#7c4dff,#5a2ee8)">SM</span>
+      </div><span class="more">+8,940 agents online</span></div>
+    </a>
   </div>
-  <div class="eco-grid rv">
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><b>AI Search</b><span>Smart discovery</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span><b>Companies</b><span>Verified directory</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M5 8v10l7 3 7-3V8"/></svg></span><b>Marketplace</b><span>Buy &amp; sell</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 7l4-4h8l4 4M9 12h6"/></svg></span><b>Rental</b><span>Lease equipment</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 21V10M18 21V10M4 10l8-6 8 6M9 21v-5h6v5"/></svg></span><b>Auctions</b><span>Live bidding</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M1 12h4l2 6 4-14 3 8h8"/></svg></span><b>Logistics</b><span>Freight &amp; routes</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg></span><b>Inspection</b><span>Certified checks</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M14 6l4 4-8 8-4 1 1-4z"/><path d="M16 4l4 4"/></svg></span><b>Repair</b><span>Service facilities</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><b>Agents</b><span>Local experts</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></span><b>Jobs</b><span>Industry careers</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><b>Investors</b><span>Capital &amp; deals</span></div>
-    <div class="eco-card"><span class="ei"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><b>Forum</b><span>Pro community</span></div>
+  <div class="bento-small rv">
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><b>AI Search</b><span>Smart discovery</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span><b>Companies</b><span>Verified directory</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 7l4-4h8l4 4M9 12h6"/></svg></span><b>Rental</b><span>Lease equipment</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 21V10M18 21V10M4 10l8-6 8 6M9 21v-5h6v5"/></svg></span><b>Auctions</b><span>Live bidding</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M1 12h4l2 6 4-14 3 8h8"/></svg></span><b>Logistics</b><span>Freight &amp; routes</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg></span><b>Inspection</b><span>Certified checks</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M14 6l4 4-8 8-4 1 1-4z"/><path d="M16 4l4 4"/></svg></span><b>Repair</b><span>Service facilities</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></span><b>Jobs</b><span>Industry careers</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><b>Investors</b><span>Capital &amp; deals</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><b>Forum</b><span>Pro community</span></div>
   </div>
 </div></section>
 
@@ -678,7 +724,7 @@ footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line
 <footer><div class="wrap">
   <div class="foot-grid">
     <div>
-      <a class="brand" href="#top"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><path d="M3 12h18M12 3c2.6 2.5 4 5.7 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.7-4-9s1.4-6.5 4-9z" stroke="#fff" stroke-width="1.6"/></svg></span><span class="bt"><b>WOP</b><span style="color:#8ea3bf">WORLD OIL PORTAL</span></span></a>
+      <a class="brand" href="#top"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="1.5"/><path d="M3 11h16M11 3c2.4 2.3 3.6 5.1 3.6 8S13.4 16.7 11 19c-2.4-2.3-3.6-5.1-3.6-8S8.6 5.3 11 3z" stroke="#fff" stroke-width="1.3"/><path d="M18.6 13.4c1.6 1.9 2.3 3.2 2.3 4.4a2.35 2.35 0 11-4.7 0c0-1.2.8-2.5 2.4-4.4z" fill="#F2A017" stroke="#fff" stroke-width=".8"/></svg></span><span class="bt"><b>WOP</b><span style="color:#8ea3bf">WORLD OIL PORTAL</span></span></a>
       <p class="fdesc">The international digital ecosystem for the oil &amp; gas industry — equipment, logistics, services and a worldwide network of local agents.</p>
     </div>
     <div class="fcol"><h4>Platform</h4><a href="#">Marketplace</a><a href="#">Auctions</a><a href="#">Logistics</a><a href="#">Tenders</a><a href="#">Agents</a></div>
@@ -833,41 +879,46 @@ import * as THREE from 'three';
 
   // ── 3D offshore oil rig (static hero object in front of the spinning globe) ──
   var rig = new THREE.Group();
-  var steel = new THREE.MeshBasicMaterial({color:0x2a3c54});
-  var steelD = new THREE.MeshBasicMaterial({color:0x1d2c40});
-  var amber = new THREE.MeshBasicMaterial({color:0xF2A017});
-  var lineMat = new THREE.LineBasicMaterial({color:0x2a3c54, transparent:true, opacity:.95});
-  // platform deck
-  var deck = new THREE.Mesh(new THREE.BoxGeometry(0.66,0.11,0.66), new THREE.MeshBasicMaterial({color:0x33465f}));
-  rig.add(deck);
-  var deckTop = new THREE.Mesh(new THREE.BoxGeometry(0.68,0.03,0.68), steel); deckTop.position.y=0.07; rig.add(deckTop);
-  // support columns + pontoons
-  [[-0.24,-0.24],[0.24,-0.24],[-0.24,0.24],[0.24,0.24]].forEach(function(p){
-    var col=new THREE.Mesh(new THREE.CylinderGeometry(0.035,0.05,0.62,10), steelD);
-    col.position.set(p[0],-0.37,p[1]); rig.add(col);
-    var pon=new THREE.Mesh(new THREE.BoxGeometry(0.14,0.06,0.14), steelD);
-    pon.position.set(p[0],-0.66,p[1]); rig.add(pon);
+  var steel  = new THREE.MeshBasicMaterial({color:0x3c5578});
+  var steelL = new THREE.MeshBasicMaterial({color:0x51709b});
+  var steelD = new THREE.MeshBasicMaterial({color:0x2a4066});
+  var amber  = new THREE.MeshBasicMaterial({color:0xF2A017});
+  var lineMat= new THREE.LineBasicMaterial({color:0x35527d, transparent:true, opacity:.9});
+  var goldLine= new THREE.LineBasicMaterial({color:0xE0942A, transparent:true, opacity:.9});
+  // slim platform deck
+  var deck = new THREE.Mesh(new THREE.BoxGeometry(0.5,0.06,0.5), steel); rig.add(deck);
+  var deckTop = new THREE.Mesh(new THREE.BoxGeometry(0.54,0.018,0.54), steelL); deckTop.position.y=0.045; rig.add(deckTop);
+  // 4 slim legs + feet
+  [[-0.19,-0.19],[0.19,-0.19],[-0.19,0.19],[0.19,0.19]].forEach(function(p){
+    var col=new THREE.Mesh(new THREE.CylinderGeometry(0.024,0.03,0.56,10), steelD);
+    col.position.set(p[0],-0.33,p[1]); rig.add(col);
+    var foot=new THREE.Mesh(new THREE.BoxGeometry(0.1,0.035,0.1), steelD);
+    foot.position.set(p[0],-0.6,p[1]); rig.add(foot);
   });
-  // derrick lattice tower (tapered square)
-  function corner(l,i){var hw=0.12+(0.03-0.12)*l, y=0.1+(1.02-0.1)*l,
-    sx=(i===0||i===3)?-1:1, sz=(i<2)?-1:1; return new THREE.Vector3(sx*hw,y,sz*hw);}
-  var seg=[], levels=7;
-  for(var l=0;l<levels;l++){var a=l/levels,b=(l+1)/levels;
-    for(var i=0;i<4;i++){seg.push(corner(a,i),corner(b,i));seg.push(corner(a,i),corner(a,(i+1)%4));seg.push(corner(a,i),corner(b,(i+1)%4));}}
-  rig.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(seg), lineMat));
-  // crown + flare
-  var crown=new THREE.Mesh(new THREE.BoxGeometry(0.11,0.07,0.11), steel); crown.position.y=1.05; rig.add(crown);
-  var flame=new THREE.Mesh(new THREE.ConeGeometry(0.05,0.16,12), amber); flame.position.y=1.2; rig.add(flame);
-  var flareGlow=new THREE.Mesh(new THREE.SphereGeometry(0.11,12,12),
-    new THREE.MeshBasicMaterial({color:0xF2A017,transparent:true,opacity:0.25})); flareGlow.position.y=1.22; rig.add(flareGlow);
   // helipad
-  var pad=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.02,20), new THREE.MeshBasicMaterial({color:0x243547}));
-  pad.position.set(0.2,0.09,0.2); rig.add(pad);
-  // base activity disc on the ocean
-  var disc=new THREE.Mesh(new THREE.CircleGeometry(0.5,40),
-    new THREE.MeshBasicMaterial({color:0x1667E6,transparent:true,opacity:0.08}));
-  disc.rotation.x=-Math.PI/2; disc.position.y=-0.68; rig.add(disc);
-  rig.scale.setScalar(1.04); rig.position.set(0,-0.34,1.95);
+  var pad=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,0.015,22), steelL);
+  pad.position.set(0.15,0.06,0.15); rig.add(pad);
+  // tapered derrick lattice (blue steel, gold top segment)
+  function corner(l,i){var hw=0.1+(0.022-0.1)*l, y=0.07+(1.0-0.07)*l,
+    sx=(i===0||i===3)?-1:1, sz=(i<2)?-1:1; return new THREE.Vector3(sx*hw,y,sz*hw);}
+  var seg=[], segTop=[], levels=8;
+  for(var l=0;l<levels;l++){var a=l/levels,b=(l+1)/levels; var dst=(l>=levels-2)?segTop:seg;
+    for(var i=0;i<4;i++){dst.push(corner(a,i),corner(b,i));dst.push(corner(a,i),corner(a,(i+1)%4));dst.push(corner(a,i),corner(b,(i+1)%4));}}
+  rig.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(seg), lineMat));
+  rig.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(segTop), goldLine));
+  // crown + gold flare
+  var crown=new THREE.Mesh(new THREE.BoxGeometry(0.07,0.05,0.07), steelL); crown.position.y=1.0; rig.add(crown);
+  var flame=new THREE.Mesh(new THREE.ConeGeometry(0.04,0.14,12), amber); flame.position.y=1.12; rig.add(flame);
+  var flareGlow=new THREE.Mesh(new THREE.SphereGeometry(0.1,14,14),
+    new THREE.MeshBasicMaterial({color:0xF2A017,transparent:true,opacity:0.22})); flareGlow.position.y=1.14; rig.add(flareGlow);
+  // glowing base ring (pulses) + activity disc
+  var baseRing=new THREE.Mesh(new THREE.TorusGeometry(0.4,0.01,8,48),
+    new THREE.MeshBasicMaterial({color:0x1667E6,transparent:true,opacity:0.7}));
+  baseRing.rotation.x=-Math.PI/2; baseRing.position.y=-0.02; rig.add(baseRing);
+  var disc=new THREE.Mesh(new THREE.CircleGeometry(0.46,44),
+    new THREE.MeshBasicMaterial({color:0x1667E6,transparent:true,opacity:0.06}));
+  disc.rotation.x=-Math.PI/2; disc.position.y=-0.6; rig.add(disc);
+  rig.scale.setScalar(1.02); rig.position.set(0,-0.3,1.95);
   scene.add(rig);
 
   var t=0;
@@ -875,8 +926,9 @@ import * as THREE from 'three';
     t+=0.0016;
     if(!rm) group.rotation.y += 0.0016;
     pulses.forEach(function(p){var u=(t*0.35+p.off)%1; var v=p.curve.getPoint(u); p.mesh.position.copy(v);});
-    if(!rm){ rig.position.y = -0.32 + Math.sin(t*1.6)*0.012;
-      var s=1+Math.sin(t*7)*0.14; flame.scale.set(1,s,1); flareGlow.scale.setScalar(1+Math.sin(t*7)*0.18);}
+    if(!rm){ rig.position.y = -0.3 + Math.sin(t*1.6)*0.012;
+      var s=1+Math.sin(t*7)*0.14; flame.scale.set(1,s,1); flareGlow.scale.setScalar(1+Math.sin(t*7)*0.18);
+      var br=1+Math.sin(t*2.2)*0.06; baseRing.scale.set(br,br,1); baseRing.material.opacity=0.4+Math.abs(Math.sin(t*2.2))*0.35;}
     renderer.render(scene,cam);
     requestAnimationFrame(loop);
   }
