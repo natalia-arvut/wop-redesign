@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World Oil Portal — Global Energy, Logistics & Agent Hub</title>
+<meta name="description" content="World Oil Portal — the international digital ecosystem for the oil & gas industry. Equipment, rental, auctions, logistics, inspection, agents and services across 190+ countries and 150,000+ cities.">
+<link rel="preconnect" href="/">
+<style>
+@import url('fonts/fonts.css');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#EDF3FC; --bg2:#FFFFFF; --panel:#F7FAFF;
+  --ink:#0A2540; --ink2:#43566E; --mut:#7B8BA3;
+  --line:#DCE6F3; --line2:#E9F0FA;
+  --blue:#1667E6; --blue-d:#0B4ED1; --blue-l:#5B93F4;
+  --sky:#E9F2FF; --sky2:#F0F6FF;
+  --amber:#F2A017; --amber-d:#D8890A;
+  --up:#12A150; --down:#E0433B;
+  --nav-h:70px; --tick-h:34px;
+  --radius:16px; --shadow:0 24px 60px -22px rgba(10,37,64,.22); --shadow-s:0 8px 24px -12px rgba(10,37,64,.18);
+  --wrap:1280px;
+}
+html{scroll-behavior:smooth}
+body{color:var(--ink);font-family:'Satoshi',system-ui,sans-serif;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background:
+    radial-gradient(1200px 700px at 88% 4%,rgba(22,103,230,.09),transparent 55%),
+    radial-gradient(900px 600px at 4% 92%,rgba(242,160,23,.05),transparent 55%),
+    linear-gradient(180deg,#F5F9FF 0%,#EBF2FC 45%,#EEF4FD 100%);
+  background-attachment:fixed}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+h1,h2,h3,.disp{font-family:'Clash Display','Satoshi',sans-serif;letter-spacing:-.02em}
+.mono{font-family:'JetBrains Mono',monospace}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+svg{display:block}
+::selection{background:var(--blue);color:#fff}
+
+/* ── market ticker strip ── */
+.ticker{height:var(--tick-h);background:var(--ink);color:#dbe6f7;display:flex;align-items:center;overflow:hidden;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;position:relative;z-index:60}
+.ticker .track{display:flex;gap:38px;white-space:nowrap;padding-left:100%;animation:tick 34s linear infinite}
+.ticker b{color:#fff;font-weight:500}
+.ticker .u{color:#57d98a}.ticker .d{color:#ff8a7a}
+.ticker .dot{color:#5b93f4}
+@keyframes tick{to{transform:translateX(-100%)}}
+
+/* ── nav ── */
+.nav{height:var(--nav-h);position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);
+  backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;gap:30px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(150deg,#1667E6,#0B4ED1);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px -4px rgba(22,103,230,.6)}
+.brand .mark svg{width:24px;height:24px}
+.brand .bt b{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;letter-spacing:.02em;display:block;line-height:1}
+.brand .bt span{font-size:9.5px;letter-spacing:.24em;color:var(--mut);font-weight:600;white-space:nowrap}
+.nav-links{display:flex;gap:22px;margin-left:6px}
+.nav-links a{display:flex;flex-direction:column;line-height:1.2;padding:6px 0;position:relative;white-space:nowrap}
+.nav-links a b{font-size:14px;font-weight:700}
+.nav-links a span{font-size:10.5px;color:var(--mut);font-weight:600}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--blue);transition:width .25s}
+.nav-links a:hover::after{width:100%}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.icon-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;display:flex;
+  align-items:center;justify-content:center;color:var(--ink2);transition:.2s}
+.icon-btn:hover{border-color:var(--blue);color:var(--blue)}
+.icon-btn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+.btn-ghost{display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--line);border-radius:10px;
+  background:#fff;font-size:13.5px;font-weight:700;color:var(--ink);transition:.2s}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-ghost svg{width:16px;height:16px;stroke:currentColor;stroke-width:2;fill:none}
+.btn-primary{padding:11px 20px;border-radius:10px;background:linear-gradient(135deg,#1667E6,#0B4ED1);color:#fff;
+  font-size:13.5px;font-weight:700;box-shadow:0 10px 24px -8px rgba(22,103,230,.7);transition:transform .2s,box-shadow .2s;white-space:nowrap}
+.btn-ghost{white-space:nowrap}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 16px 30px -8px rgba(22,103,230,.8)}
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;pointer-events:none;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);animation:sheen 5s ease-in-out infinite}
+@keyframes sheen{0%,58%{left:-70%}78%,100%{left:140%}}
+.nav-burger{display:none}
+
+/* ── hero ── */
+.hero{position:relative;padding:56px 0 40px;background:
+  radial-gradient(1100px 620px at 82% 8%,rgba(22,103,230,.10),transparent 60%),
+  radial-gradient(760px 520px at 6% 96%,rgba(242,160,23,.06),transparent 60%),
+  linear-gradient(180deg,#F4F8FF,#EDF3FC)}
+.hero-grid{display:grid;grid-template-columns:1fr 1.06fr;gap:36px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:800;letter-spacing:.18em;
+  color:var(--blue-d);text-transform:uppercase;margin-bottom:20px}
+.eyebrow .pulse{width:9px;height:9px;border-radius:50%;background:var(--up);position:relative}
+.eyebrow .pulse::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--up);
+  opacity:.5;animation:ring 2s ease-out infinite}
+@keyframes ring{to{transform:scale(2.4);opacity:0}}
+.hero h1{font-size:clamp(40px,5.4vw,72px);font-weight:700;line-height:.98}
+.hero h1 .g{background:linear-gradient(120deg,#1667E6,#0B4ED1 60%,#F2A017);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.hero .tag{margin-top:16px;font-size:19px;font-weight:700;color:var(--ink)}
+.hero .sub{margin-top:12px;font-size:16.5px;color:var(--ink2);max-width:52ch}
+.search{margin-top:26px;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:8px 8px 8px 18px;box-shadow:var(--shadow-s);max-width:560px}
+.search svg{width:20px;height:20px;stroke:var(--mut);stroke-width:2;fill:none;flex:none}
+.search input{border:none;outline:none;flex:1;font-size:15.5px;font-family:inherit;color:var(--ink);background:none}
+.search input::placeholder{color:var(--mut)}
+.search .go{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1667E6,#0B4ED1);
+  display:flex;align-items:center;justify-content:center;flex:none}
+.search .go svg{stroke:#fff}
+.statbar{margin-top:26px;display:flex;background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow-s);overflow:hidden;max-width:600px}
+.statbar .s{flex:1;padding:15px 18px}
+.statbar .s+.s{border-left:1px solid var(--line2)}
+.statbar b{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:600;display:block;line-height:1;
+  letter-spacing:-.01em}
+.statbar span{font-size:11px;color:var(--mut);font-weight:600;margin-top:5px;display:block;letter-spacing:.01em}
+.hero .watch{margin-top:22px;display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--ink)}
+.hero .watch .pl{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-s)}
+.hero .watch .pl svg{width:14px;height:14px;fill:var(--blue)}
+
+/* ── globe visual ── */
+.visual{position:relative;height:640px;overflow:visible}
+.globe-img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:122%;max-width:none;height:auto;
+  -webkit-mask-image:radial-gradient(circle at 50% 48%, #000 42%, rgba(0,0,0,.5) 60%, transparent 75%);
+  mask-image:radial-gradient(circle at 50% 48%, #000 42%, rgba(0,0,0,.5) 60%, transparent 75%)}
+.arcs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:96%;height:96%;pointer-events:none}
+.pin img{width:36px;height:36px;border-radius:9px;object-fit:cover;flex:none;box-shadow:0 3px 8px -3px rgba(10,37,64,.4)}
+.hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:120px;height:120px;pointer-events:none}
+.hub .ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(22,103,230,.35);animation:hpulse 3.4s ease-out infinite}
+.hub .ring:nth-child(2){animation-delay:1.1s}.hub .ring:nth-child(3){animation-delay:2.2s}
+@keyframes hpulse{0%{transform:scale(.5);opacity:.9}100%{transform:scale(2.2);opacity:0}}
+.hub .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#fff,#cfe0fa);border:1px solid #fff;
+  box-shadow:0 10px 30px -6px rgba(22,103,230,.6),0 0 0 6px rgba(22,103,230,.10);
+  display:flex;align-items:center;justify-content:center}
+.hub .core svg{width:30px;height:30px}
+.pin{position:absolute;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.94);border:1px solid var(--line);
+  border-radius:12px;padding:6px 12px 6px 6px;box-shadow:var(--shadow-s);animation:float 6s ease-in-out infinite;backdrop-filter:blur(6px)}
+.pin .av{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:12px;font-family:'Clash Display',sans-serif}
+.pin b{font-size:12.5px;font-weight:800;display:block;line-height:1.1;color:var(--ink)}
+.pin span{font-size:10.5px;color:var(--up);font-weight:700;display:flex;align-items:center;gap:4px}
+.pin span i{width:6px;height:6px;border-radius:50%;background:var(--up);display:block}
+.pin.alt span{color:var(--blue)}.pin.alt span i{background:var(--blue)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.reach{position:absolute;right:2px;top:26px;width:190px;background:linear-gradient(160deg,#0d2c54,#0a2540);color:#eaf2ff;
+  border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.reach .rt{font-size:12px;font-weight:800;letter-spacing:.12em;color:#8fb6f2}
+.reach p{font-size:12.5px;color:#c7d8f0;margin-top:8px;line-height:1.5}
+.reach a{margin-top:12px;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#fff;
+  background:rgba(255,255,255,.12);padding:8px 12px;border-radius:8px}
+.reach a svg{width:13px;height:13px;stroke:#fff;stroke-width:2;fill:none}
+
+/* ── section shell ── */
+section{position:relative}
+.sec{padding:76px 0}
+.sec-head{max-width:720px;margin-bottom:38px}
+.sec-head.center{margin:0 auto 44px;text-align:center}
+.kick{font-size:12.5px;font-weight:800;letter-spacing:.16em;color:var(--blue-d);text-transform:uppercase}
+.sec-head h2{font-size:clamp(28px,3.6vw,44px);font-weight:700;margin-top:12px;line-height:1.05}
+.sec-head p{margin-top:14px;font-size:16.5px;color:var(--ink2)}
+
+/* ── ecosystem chain ── */
+.eco{background:transparent}
+.eco-head{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;align-items:end;margin-bottom:32px}
+.eco-head h2{font-family:'Clash Display',sans-serif;font-size:clamp(28px,3.6vw,44px);font-weight:600;margin-top:12px;line-height:1.04}
+.eco-head p{font-size:15.5px;color:var(--ink2);line-height:1.6}
+.bento-feat{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.bcard{border-radius:20px;padding:26px;position:relative;overflow:hidden;display:flex;flex-direction:column;
+  min-height:186px;border:1px solid var(--line);transition:transform .25s,box-shadow .25s,border-color .25s;cursor:pointer}
+.bcard .bi{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(150deg,#eaf2ff,#dbeafe);margin-bottom:auto}
+.bcard .bi svg{width:27px;height:27px;stroke:var(--blue-d);stroke-width:1.8;fill:none}
+.bcard h3{font-family:'Clash Display',sans-serif;font-size:23px;font-weight:600;margin-top:18px;letter-spacing:-.01em}
+.bcard p{font-size:13.5px;margin-top:7px;color:var(--ink2);line-height:1.5;max-width:38ch}
+.bcard .go{margin-top:15px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--blue-d)}
+.bcard .go svg{width:15px;height:15px;stroke-width:2.4;fill:none;stroke:currentColor;transition:transform .2s}
+.bcard:hover .go svg{transform:translateX(5px)}
+.bcard.light{background:var(--panel)}
+.bcard.light:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:var(--shadow)}
+.bcard.blue{background:linear-gradient(140deg,#1a73ff,#0B4ED1);color:#fff;border:none;
+  box-shadow:0 24px 50px -22px rgba(22,103,230,.75)}
+.bcard.blue::after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)}
+.bcard.blue .bi{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3)}
+.bcard.blue .bi svg{stroke:#fff}
+.bcard.blue p{color:#dbe8ff}
+.bcard.blue .go{color:#fff}
+.bcard.blue:hover{transform:translateY(-4px);box-shadow:0 30px 60px -22px rgba(22,103,230,.85)}
+.bavs{display:flex;margin-top:16px;align-items:center;gap:10px}
+.bavs .row{display:flex}
+.bavs .row span{width:34px;height:34px;border-radius:50%;border:2.5px solid #fff;margin-left:-10px;display:flex;
+  align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;font-family:'Clash Display',sans-serif;
+  box-shadow:0 4px 10px -3px rgba(10,37,64,.3)}
+.bavs .row span:first-child{margin-left:0}
+.bavs .more{font-size:12.5px;color:var(--mut);font-weight:700}
+.bento-small{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:18px 16px;transition:transform .22s,box-shadow .22s,border-color .22s;position:relative;overflow:hidden;cursor:pointer}
+.scard::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;transform:scaleX(0);transform-origin:left;
+  background:linear-gradient(90deg,#1667E6,#F2A017);transition:transform .3s}
+.scard:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:var(--shadow-s);background:#fff}
+.scard:hover::after{transform:scaleX(1)}
+.scard .si{width:42px;height:42px;border-radius:12px;background:linear-gradient(150deg,#eaf2ff,#dbeafe);
+  display:flex;align-items:center;justify-content:center;margin-bottom:13px;transition:.22s}
+.scard:hover .si{background:linear-gradient(150deg,#1667E6,#0B4ED1)}
+.scard .si svg{width:21px;height:21px;stroke:var(--blue-d);stroke-width:1.8;fill:none;transition:.22s}
+.scard:hover .si svg{stroke:#fff}
+.scard b{font-size:14px;font-weight:700;display:block}
+.scard span{font-size:11px;color:var(--mut);font-weight:600}
+@media(max-width:1080px){.eco-head{grid-template-columns:1fr;gap:14px;align-items:start}.bento-small{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.bento-feat{grid-template-columns:1fr}.bento-small{grid-template-columns:repeat(2,1fr)}}
+
+/* ── feature cards ── */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feat{position:relative;border-radius:var(--radius);overflow:hidden;min-height:270px;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:22px;color:#fff;box-shadow:var(--shadow-s);isolation:isolate}
+.feat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .6s}
+.feat::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(10,37,64,0) 30%,rgba(10,37,64,.55) 62%,rgba(8,30,54,.9))}
+.feat:hover img{transform:scale(1.06)}
+.feat .fi{width:44px;height:44px;border-radius:11px;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;margin-bottom:auto;border:1px solid rgba(255,255,255,.25)}
+.feat .fi svg{width:23px;height:23px;stroke:#fff;stroke-width:2;fill:none}
+.feat h3{font-size:20px;font-weight:700;margin-top:14px}
+.feat p{font-size:13.5px;color:#d7e5f7;margin-top:6px;line-height:1.5}
+.feat .lnk{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:800}
+.feat .lnk svg{width:15px;height:15px;stroke:#fff;stroke-width:2.4;fill:none;transition:transform .2s}
+.feat:hover .lnk svg{transform:translateX(4px)}
+
+/* ── rig info card ── */
+.rigcard{position:absolute;left:49%;bottom:5%;transform:translateX(-50%);width:252px;background:rgba(255,255,255,.95);
+  border:1px solid var(--line);border-radius:13px;padding:13px 15px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.rigcard .rc-t{font-size:11px;font-weight:800;letter-spacing:.09em;color:var(--blue-d)}
+.rigcard .rc-r{display:flex;justify-content:space-between;font-size:12px;margin-top:8px;color:var(--mut);font-weight:600}
+.rigcard .rc-r b{color:var(--ink);font-weight:700}
+.rigcard .rc-r b.on{color:var(--up);display:flex;align-items:center;gap:5px}
+.rigcard .rc-r b.on i{width:6px;height:6px;border-radius:50%;background:var(--up);display:block}
+
+/* ── agent network ── */
+.agents-sec{background:transparent}
+.agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.agent{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;transition:.2s;display:flex;flex-direction:column}
+.agent:hover{transform:translateY(-3px);box-shadow:var(--shadow-s);border-color:var(--blue);background:#fff}
+.agent .atop{display:flex;gap:12px;align-items:center}
+.agent .aav{width:50px;height:50px;border-radius:13px;flex:none;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-family:'Clash Display',sans-serif;font-size:16px;position:relative}
+.agent .aav .on{position:absolute;right:-3px;bottom:-3px;width:14px;height:14px;border-radius:50%;background:var(--up);border:2.5px solid var(--panel)}
+.agent:hover .aav .on{border-color:#fff}
+.agent .anm b{font-size:15px;font-weight:800;display:block;line-height:1.2}
+.agent .anm .ac{font-size:12px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:5px;margin-top:2px}
+.agent .aspec{margin-top:14px;font-size:11.5px;font-weight:700;color:var(--blue-d);background:var(--sky);
+  border:1px solid #d5e6ff;padding:6px 11px;border-radius:99px;align-self:flex-start}
+.agent .ameta{margin-top:14px;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--ink2);font-weight:600;flex:1}
+.agent .ameta .row{display:flex;justify-content:space-between;align-items:center}
+.agent .ameta .row b{color:var(--ink);font-weight:700}
+.agent .stars{color:var(--amber);font-size:12px;letter-spacing:1.5px}
+.agent .afoot{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.agent .price{font-size:11.5px;color:var(--mut);font-weight:600}
+.agent .price b{font-family:'Clash Display',sans-serif;font-size:16px;color:var(--ink);font-weight:700;display:block}
+.agent .hire{font-size:12.5px;font-weight:800;color:#fff;background:linear-gradient(135deg,#1667E6,#0B4ED1);padding:10px 15px;border-radius:10px;transition:transform .2s}
+.agent .hire:hover{transform:translateY(-1px)}
+@media(max-width:1080px){.agent-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.agent-grid{grid-template-columns:1fr}}
+
+/* ── intelligence row ── */
+.intel{background:transparent}
+.intel-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.card .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card .ch b{font-size:15px;font-weight:800}
+.card .ch a{font-size:12.5px;font-weight:700;color:var(--blue);display:flex;align-items:center;gap:5px}
+.card .ch a svg{width:13px;height:13px;stroke:var(--blue);stroke-width:2;fill:none}
+.mkt{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mkt .m{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fff}
+.mkt .m .lbl{font-size:11px;color:var(--mut);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.mkt .m .val{display:flex;align-items:baseline;gap:8px;margin:6px 0 8px}
+.mkt .m .val b{font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:700}
+.mkt .m .val .chg{font-size:11.5px;font-weight:800}
+.mkt .m .chg.up{color:var(--up)}.mkt .m .chg.down{color:var(--down)}
+.mkt .m svg{width:100%;height:34px}
+.tender{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.tender:last-child{border-bottom:none;padding-bottom:0}
+.tender .tim{width:46px;height:46px;border-radius:11px;background:var(--sky);flex:none;display:flex;
+  align-items:center;justify-content:center}
+.tender .tim svg{width:22px;height:22px;stroke:var(--blue-d);stroke-width:1.8;fill:none}
+.tender .tb b{font-size:14px;font-weight:800;display:block}
+.tender .tb .loc{font-size:12px;color:var(--mut);font-weight:600;display:block}
+.tender .tb .cd{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--blue-d);font-weight:700;margin-top:3px}
+.tender .new{margin-left:auto;align-self:flex-start;font-size:10px;font-weight:800;color:var(--up);background:#e6f6ec;
+  padding:3px 8px;border-radius:99px}
+.equip{display:flex;flex-direction:column;gap:12px}
+.equip .ei{border-radius:12px;overflow:hidden;height:120px;background:#eef3fb;display:flex;align-items:center;justify-content:center}
+.equip .ei img{width:100%;height:100%;object-fit:cover}
+.equip b{font-size:15px;font-weight:800}
+.equip .spec{font-size:12px;color:var(--mut);font-weight:600}
+.equip .price{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;color:var(--ink);margin-top:2px}
+.equip .loc{font-size:12px;color:var(--mut);font-weight:600}
+
+/* ── global network band ── */
+.netband{background:transparent;color:var(--ink);overflow:hidden;position:relative}
+.netband::before{content:"";position:absolute;inset:0;opacity:.7;
+  background:radial-gradient(700px 380px at 80% 20%,rgba(22,103,230,.10),transparent 60%),
+  radial-gradient(560px 320px at 12% 90%,rgba(242,160,23,.06),transparent 60%)}
+.netband .wrap{position:relative}
+.net-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:44px;align-items:center}
+.netband .kick{color:var(--blue-d)}
+.netband h2{font-size:clamp(28px,3.6vw,44px);font-weight:700;margin-top:12px;line-height:1.05;color:var(--ink)}
+.netband p.lead{margin-top:16px;font-size:16.5px;color:var(--ink2);max-width:48ch}
+.livemetrics{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:440px}
+.lm{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-s)}
+.lm b{font-family:'Clash Display',sans-serif;font-size:26px;font-weight:700;display:block;line-height:1;color:var(--ink)}
+.lm span{font-size:12px;color:var(--mut);font-weight:600}
+.lm .live{font-size:10px;color:var(--up);font-weight:800;letter-spacing:.1em;display:inline-flex;align-items:center;gap:5px;margin-bottom:8px}
+.lm .live i{width:6px;height:6px;border-radius:50%;background:var(--up);display:block;animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.mapbox{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;
+  padding:22px;min-height:340px;box-shadow:var(--shadow-s)}
+.mapbox svg{width:100%;height:auto}
+.region{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.region .r{display:grid;grid-template-columns:96px 1fr 40px;align-items:center;gap:10px;font-size:12.5px;color:var(--ink2);font-weight:600}
+.region .bar{height:7px;border-radius:99px;background:rgba(10,37,64,.09);overflow:hidden}
+.region .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#5b93f4,#1667E6);width:0;transition:width 1.2s ease}
+.region .pct{font-family:'JetBrains Mono',monospace;color:var(--ink);font-weight:700;text-align:right}
+
+/* ── subscriptions ── */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;position:relative;
+  display:flex;flex-direction:column}
+.plan.vip{background:linear-gradient(165deg,#0d2c54,#0a2540);color:#eaf2ff;border-color:#0a2540;box-shadow:var(--shadow)}
+.plan.vip .pname{color:#fff}.plan.vip .pdesc{color:#a9c4ea}.plan.vip li{color:#d7e5f7}
+.plan .badge{position:absolute;top:-11px;left:22px;font-size:10px;font-weight:800;letter-spacing:.1em;color:#0a2540;
+  background:linear-gradient(90deg,#F2A017,#ffd67a);padding:5px 12px;border-radius:99px}
+.plan .vipbadge{position:absolute;top:-11px;left:22px;font-size:10px;font-weight:800;letter-spacing:.1em;color:#0a2540;
+  background:linear-gradient(90deg,#F2A017,#ffd67a);padding:5px 12px;border-radius:99px}
+.pname{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700}
+.pdesc{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:4px}
+.price-row{margin:16px 0;display:flex;align-items:baseline;gap:4px}
+.price-row .amt{font-family:'Clash Display',sans-serif;font-size:34px;font-weight:700}
+.price-row .per{font-size:12.5px;color:var(--mut);font-weight:700}
+.plan.vip .per{color:#a9c4ea}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:20px;flex:1}
+.plan li{font-size:13px;color:var(--ink2);font-weight:600;display:flex;gap:9px;align-items:flex-start}
+.plan li svg{width:16px;height:16px;flex:none;margin-top:1px;stroke:var(--blue);stroke-width:2.4;fill:none}
+.plan.vip li svg{stroke:var(--amber)}
+.plan .pbtn{padding:12px;border-radius:11px;text-align:center;font-weight:800;font-size:13.5px;border:1px solid var(--line);
+  background:#fff;color:var(--ink);transition:.2s}
+.plan .pbtn:hover{border-color:var(--blue);color:var(--blue)}
+.plan.pop .pbtn,.plan.vip .pbtn{background:linear-gradient(135deg,#1667E6,#0B4ED1);color:#fff;border:none}
+.plan.vip .pbtn{background:linear-gradient(135deg,#F2A017,#D8890A);color:#0a2540}
+
+/* ── trust ── */
+.trust{background:transparent}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:44px}
+.tcard{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.tcard .ti{width:44px;height:44px;border-radius:12px;background:var(--sky);flex:none;display:flex;align-items:center;justify-content:center}
+.tcard .ti svg{width:22px;height:22px;stroke:var(--blue-d);stroke-width:1.9;fill:none}
+.tcard b{font-size:15px;font-weight:800;display:block}
+.tcard p{font-size:13px;color:var(--ink2);margin-top:4px;line-height:1.5}
+.logos-lbl{text-align:center;font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--mut);text-transform:uppercase;margin-bottom:22px}
+.logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 42px}
+.logos span{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:700;color:#9db0c8;letter-spacing:.02em;
+  filter:grayscale(1);transition:.2s}
+.logos span:hover{color:var(--ink);filter:none}
+
+/* ── cta ── */
+.cta{padding:0 0 76px}
+.cta-in{background:linear-gradient(135deg,#1667E6,#0B4ED1 60%,#0a2f7a);border-radius:26px;padding:56px;color:#fff;
+  position:relative;overflow:hidden;text-align:center}
+.cta-in::before{content:"";position:absolute;inset:0;opacity:.5;
+  background:radial-gradient(500px 300px at 85% 20%,rgba(242,160,23,.3),transparent 60%),
+  radial-gradient(460px 280px at 10% 90%,rgba(255,255,255,.18),transparent 60%)}
+.cta-in>*{position:relative}
+.cta-in h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;line-height:1.05}
+.cta-in p{margin-top:14px;font-size:17px;color:#dbe8ff;max-width:56ch;margin-left:auto;margin-right:auto}
+.cta-btns{margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-btns .b1{background:#fff;color:var(--blue-d);padding:15px 30px;border-radius:12px;font-weight:800;font-size:15px;
+  display:inline-flex;align-items:center;gap:9px;transition:transform .2s}
+.cta-btns .b1:hover{transform:translateY(-2px)}
+.cta-btns .b1 svg{width:17px;height:17px;stroke:var(--blue-d);stroke-width:2.4;fill:none}
+.cta-btns .b2{border:1.5px solid rgba(255,255,255,.6);color:#fff;padding:15px 28px;border-radius:12px;font-weight:800;font-size:15px}
+
+/* ── footer ── */
+footer{background:var(--ink);color:#b7c8de;padding:56px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;padding-bottom:34px;border-bottom:1px solid rgba(255,255,255,.1)}
+footer .brand .bt b{color:#fff}
+footer .fdesc{font-size:13.5px;color:#8ea3bf;margin-top:16px;max-width:34ch;line-height:1.6}
+.fcol h4{font-size:12px;font-weight:800;letter-spacing:.12em;color:#fff;text-transform:uppercase;margin-bottom:14px}
+.fcol a{display:block;font-size:13.5px;color:#a9bdd6;padding:5px 0;transition:.2s}
+.fcol a:hover{color:#fff}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:12.5px;color:#7f95b2;flex-wrap:wrap;gap:12px}
+.foot-bot .langs{display:flex;gap:16px}
+.foot-bot .langs a:hover{color:#fff}
+
+/* ── reveal ── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ── responsive ── */
+@media(max-width:1080px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .hero-grid{grid-template-columns:1fr;gap:20px}
+  .visual{height:460px;order:-1}
+  .eco-grid{grid-template-columns:repeat(4,1fr)}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .intel-grid{grid-template-columns:1fr 1fr}
+  .net-grid{grid-template-columns:1fr;gap:28px}
+  .plans{grid-template-columns:repeat(2,1fr)}
+  .trust-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  :root{--nav-h:62px}
+  .wrap{padding:0 18px}
+  .brand .bt span{display:none}
+  .btn-ghost{display:none}
+  .btn-primary{padding:9px 13px;font-size:12px}
+  .nav-in{gap:12px}
+  .pin[style*="Singapore"],.pin.p-hide{display:none}
+  .hero{padding:36px 0 30px}
+  .hero h1{font-size:40px}
+  .visual{height:380px}
+  .reach{display:none}
+  .eco-grid{grid-template-columns:repeat(2,1fr)}
+  .feat-grid{grid-template-columns:1fr}
+  .intel-grid{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .chain{display:none}
+  .cta-in{padding:36px 22px}
+  .sec{padding:52px 0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* ── full-bleed hero override ── */
+.hero{padding:0;min-height:700px;overflow:hidden;background:linear-gradient(180deg,#F5F9FF,#EDF3FC)}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:74% center}
+.hero-fade{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,#F6FAFF 0%,rgba(246,250,255,.94) 26%,rgba(246,250,255,.6) 42%,rgba(246,250,255,0) 60%)}
+.hero-inner{position:relative;z-index:2;display:flex;align-items:center;min-height:700px}
+.hero .hero-copy{max-width:560px;padding:40px 0}
+.hero h1{color:var(--ink)}
+.hero .pin,.hero .reach{position:absolute;z-index:3}
+.btn-primary::after{display:none!important}
+@media(max-width:900px){
+  .hero{min-height:auto}
+  .hero-bg{position:relative;height:280px;object-position:center}
+  .hero-fade{display:none}
+  .hero-inner{min-height:auto;padding:26px 0}
+  .hero .pin,.hero .reach{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- market ticker -->
+<div class="ticker" aria-hidden="true"><div class="track">
+  <span><b>BRENT CRUDE</b> $84.32 <em class="u">▲ 1.24%</em></span>
+  <span><b>WTI CRUDE</b> $79.15 <em class="u">▲ 1.18%</em></span>
+  <span><b>NATURAL GAS</b> $2.45 <em class="d">▼ 0.36%</em></span>
+  <span><b>RIG COUNT</b> 1,048 <em class="u">▲ 2.14%</em></span>
+  <span class="dot">●</span>
+  <span><b>GLOBAL DEALS TODAY</b> 3,412</span>
+  <span><b>AGENTS ONLINE</b> 8,940</span>
+  <span><b>ACTIVE TENDERS</b> 1,247</span>
+  <span class="dot">●</span>
+  <span><b>BRENT CRUDE</b> $84.32 <em class="u">▲ 1.24%</em></span>
+  <span><b>WTI CRUDE</b> $79.15 <em class="u">▲ 1.18%</em></span>
+  <span><b>NATURAL GAS</b> $2.45 <em class="d">▼ 0.36%</em></span>
+  <span><b>RIG COUNT</b> 1,048 <em class="u">▲ 2.14%</em></span>
+</div></div>
+
+<!-- nav -->
+<nav class="nav"><div class="nav-in">
+  <a class="brand" href="#top">
+    <span class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="1.5"/><path d="M3 11h16M11 3c2.4 2.3 3.6 5.1 3.6 8S13.4 16.7 11 19c-2.4-2.3-3.6-5.1-3.6-8S8.6 5.3 11 3z" stroke="#fff" stroke-width="1.3"/><path d="M18.6 13.4c1.6 1.9 2.3 3.2 2.3 4.4a2.35 2.35 0 11-4.7 0c0-1.2.8-2.5 2.4-4.4z" fill="#F2A017" stroke="#fff" stroke-width=".8"/></svg></span>
+    <span class="bt"><b>WOP</b><span>WORLD OIL PORTAL</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#ecosystem"><b>Explore</b><span>Infrastructure</span></a>
+    <a href="#features"><b>Auctions</b><span>Equipment</span></a>
+    <a href="#intel"><b>Logistics</b><span>Global Shipping</span></a>
+    <a href="#intel"><b>Tenders</b><span>Global Projects</span></a>
+    <a href="#intel"><b>Analytics</b><span>Market Intelligence</span></a>
+    <a href="#network"><b>Network</b><span>Global Reach</span></a>
+  </div>
+  <div class="nav-right">
+    <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></button>
+    <a class="btn-ghost" href="#plans"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><span>Enterprise Access</span></a>
+    <a class="btn-primary" href="#cta">Log In / Sign Up</a>
+    <button class="icon-btn nav-burger" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  </div>
+</div></nav>
+
+<!-- hero -->
+<header class="hero" id="top">
+  <img class="hero-bg" src="img/hero-wide.png" alt="Global oil &amp; gas network — Earth with offshore platform">
+  <div class="hero-fade"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="pulse"></span>Global Oil &amp; Gas · Local Agents in 150,000+ Cities</span>
+      <h1>World Oil<br>Portal</h1>
+      <p class="tag">Every oilfield deal — sourced, inspected and delivered by a local agent.</p>
+      <p class="sub">The global marketplace for oil &amp; gas equipment, rigs, rentals and logistics — where a verified local agent in any city helps you <b>find exactly what you need and get it done</b>.</p>
+      <form class="search" onsubmit="return false">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input placeholder="Search infrastructure, equipment, companies, tenders…" aria-label="Search">
+        <button class="go" aria-label="Search"><svg viewBox="0 0 24 24" stroke-width="2" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </form>
+      <div class="statbar">
+        <div class="s"><b data-count="15000" data-suffix="+">0</b><span>Verified Companies</span></div>
+        <div class="s"><b data-count="190" data-suffix="+">0</b><span>Countries</span></div>
+        <div class="s"><b data-count="150000" data-suffix="+">0</b><span>Cities</span></div>
+        <div class="s"><b data-count="50000" data-suffix="+">0</b><span>Active Deals</span></div>
+      </div>
+      <a class="watch" href="#network"><span class="pl"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>Watch Platform Overview</a>
+    </div>
+  </div>
+  <div class="pin" style="right:30%;top:11%"><img src="img/agents/a5_s.jpg" alt=""><div><b>London</b><span><i></i>Agent Online</span></div></div>
+  <div class="pin" style="right:47%;top:29%;animation-delay:.6s"><img src="img/agents/a2_s.jpg" alt=""><div><b>Houston</b><span><i></i>Agent Online</span></div></div>
+  <div class="pin alt" style="right:3%;top:37%;animation-delay:1s"><img src="img/agents/a1_s.jpg" alt=""><div><b>Dubai</b><span><i></i>278 Agents</span></div></div>
+  <div class="pin" style="right:43%;bottom:15%;animation-delay:1.4s"><img src="img/agents/a4_s.jpg" alt=""><div><b>Rio de Janeiro</b><span><i></i>Agent Online</span></div></div>
+  <div class="pin alt p-hide" style="right:9%;bottom:19%;animation-delay:.9s"><img src="img/agents/a3_s.jpg" alt=""><div><b>Singapore</b><span><i></i>362 Agents</span></div></div>
+  <div class="reach">
+    <div class="rt">GLOBAL REACH</div>
+    <p>Local verified experts in every major city — ready to inspect, ship and close deals for you.</p>
+    <a href="#network">View Our Network <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</header>
+
+<section class="sec" id="features"><div class="wrap">
+  <div class="sec-head rv">
+    <span class="kick">Core Directions</span>
+    <h2>Built for how the industry really works</h2>
+    <p>Each direction has its own tools, its own interface and its own workflow — no generic templates.</p>
+  </div>
+  <div class="feat-grid">
+    <a class="feat rv" href="#"><img src="img/auctions.jpg" alt="Global auctions"><span class="fi"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 21V10M18 21V10M4 10l8-6 8 6"/></svg></span><h3>Global Auctions</h3><p>Bid on heavy equipment, drilling systems and industrial assets worldwide.</p><span class="lnk">View Auctions <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <a class="feat rv" href="#"><img src="img/logistics.jpg" alt="Logistics command"><span class="fi"><svg viewBox="0 0 24 24"><path d="M1 12h4l2 6 4-14 3 8h8"/></svg></span><h3>Logistics Command</h3><p>Real-time shipping, freight quotes and global delivery management.</p><span class="lnk">View Logistics <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <a class="feat rv" href="#"><img src="img/tenders.jpg" alt="Global tenders"><span class="fi"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M9 12h6M9 16h6"/></svg></span><h3>Global Tenders</h3><p>Find and participate in verified oil &amp; gas projects across 190+ countries.</p><span class="lnk">View Tenders <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <a class="feat rv" href="#"><img src="img/equipment.jpg" alt="Equipment marketplace"><span class="fi"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M5 8v10l7 3 7-3V8"/></svg></span><h3>Equipment Marketplace</h3><p>Buy, sell or rent certified equipment from trusted, verified suppliers.</p><span class="lnk">View Equipment <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <a class="feat rv" href="#"><img src="img/network.jpg" alt="Our global network"><span class="fi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><h3>Our Global Network</h3><p>Local verified experts in every major city to support your business.</p><span class="lnk">View Network <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    <a class="feat rv" href="#"><img src="img/analytics.jpg" alt="Market intelligence"><span class="fi"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Market Intelligence</h3><p>Real-time oil prices, market insights and industry analytics.</p><span class="lnk">View Analytics <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  </div>
+</div></section>
+
+<section class="sec intel" id="intel"><div class="wrap">
+  <div class="sec-head rv">
+    <span class="kick">Live Intelligence</span>
+    <h2>The market, in real time</h2>
+  </div>
+  <div class="intel-grid">
+    <div class="card rv">
+      <div class="ch"><b>Live Market Overview</b><a href="#">View All <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <div class="mkt">
+        <div class="m"><div class="lbl">Brent Crude</div><div class="val"><b>$84.32</b><span class="chg up">+1.24%</span></div><svg viewBox="0 0 120 34" preserveAspectRatio="none"><polyline fill="none" stroke="#12A150" stroke-width="2" points="0,26 12,24 24,27 36,20 48,22 60,15 72,18 84,12 96,14 108,8 120,10"/></svg></div>
+        <div class="m"><div class="lbl">WTI Crude</div><div class="val"><b>$79.15</b><span class="chg up">+1.18%</span></div><svg viewBox="0 0 120 34" preserveAspectRatio="none"><polyline fill="none" stroke="#12A150" stroke-width="2" points="0,24 12,26 24,20 36,22 48,16 60,19 72,13 84,15 96,11 108,13 120,7"/></svg></div>
+        <div class="m"><div class="lbl">Natural Gas</div><div class="val"><b>$2.45</b><span class="chg down">−0.36%</span></div><svg viewBox="0 0 120 34" preserveAspectRatio="none"><polyline fill="none" stroke="#E0433B" stroke-width="2" points="0,10 12,13 24,11 36,16 48,14 60,19 72,17 84,22 96,20 108,25 120,24"/></svg></div>
+        <div class="m"><div class="lbl">Rig Count</div><div class="val"><b>1,048</b><span class="chg up">+2.14%</span></div><svg viewBox="0 0 120 34" preserveAspectRatio="none"><polyline fill="none" stroke="#12A150" stroke-width="2" points="0,24 12,22 24,23 36,18 48,20 60,16 72,17 84,12 96,13 108,9 120,8"/></svg></div>
+      </div>
+    </div>
+    <div class="card rv">
+      <div class="ch"><b>Live Tenders</b><a href="#">View All <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <div class="tender"><span class="tim"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><div class="tb"><b>Offshore Drilling Services</b><span class="loc">Gulf of Mexico</span><span class="cd" data-timer="223200">02d 14h 32m</span></div><span class="new">New</span></div>
+      <div class="tender"><span class="tim"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><div class="tb"><b>Pipeline Construction</b><span class="loc">Middle East</span><span class="cd" data-timer="465660">05d 09h 21m</span></div><span class="new">New</span></div>
+      <div class="tender"><span class="tim"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><div class="tb"><b>Refinery Equipment Supply</b><span class="loc">Singapore</span><span class="cd" data-timer="98940">01d 03h 29m</span></div><span class="new">New</span></div>
+    </div>
+    <div class="card rv">
+      <div class="ch"><b>Featured Equipment</b><a href="#">View All <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <div class="equip">
+        <div class="ei"><img src="img/equipment.jpg" alt="Cameron BOP System"></div>
+        <div><b>Cameron BOP System</b><div class="spec">18 3/4" · 15M PSI · Certified</div><div class="price">$2,850,000</div><div class="loc">Houston, USA</div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec agents-sec" id="agents"><div class="wrap">
+  <div class="sec-head center rv">
+    <span class="kick">The Agent Network</span>
+    <h2>A local agent in every city — who finds it and gets it done</h2>
+    <p>Choose a country, a city and a specialist. Your verified agent sources the equipment, inspects it on site, arranges logistics and closes the deal for you — anywhere in the world.</p>
+  </div>
+  <div class="agent-grid">
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#1667E6,#0B4ED1)">AF<span class="on"></span></span><span class="anm"><b>Ahmed Al-Farsi</b><span class="ac">📍 Dubai, UAE</span></span></div>
+      <span class="aspec">Equipment sourcing &amp; inspection</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 4.9</b></div>
+        <div class="row"><span>Deals closed</span><b>340</b></div>
+        <div class="row"><span>Languages</span><b>EN · AR</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$150</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#12A150,#0c7a3c)">JW<span class="on"></span></span><span class="anm"><b>James Whitfield</b><span class="ac">📍 Houston, USA</span></span></div>
+      <span class="aspec">Drilling equipment &amp; auctions</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 5.0</b></div>
+        <div class="row"><span>Deals closed</span><b>415</b></div>
+        <div class="row"><span>Languages</span><b>EN · ES</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$200</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#F2A017,#D8890A)">WC<span class="on"></span></span><span class="anm"><b>Wei Chen</b><span class="ac">📍 Singapore</span></span></div>
+      <span class="aspec">Logistics &amp; customs clearance</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 4.8</b></div>
+        <div class="row"><span>Deals closed</span><b>298</b></div>
+        <div class="row"><span>Languages</span><b>EN · 中文</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$120</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
+    <div class="agent rv">
+      <div class="atop"><span class="aav" style="background:linear-gradient(135deg,#7c4dff,#5a2ee8)">SM<span class="on"></span></span><span class="anm"><b>Sofia Marques</b><span class="ac">📍 Rio de Janeiro, BR</span></span></div>
+      <span class="aspec">Field inspection &amp; repair</span>
+      <div class="ameta">
+        <div class="row"><span>Rating</span><b><span class="stars">★★★★★</span> 4.9</b></div>
+        <div class="row"><span>Deals closed</span><b>176</b></div>
+        <div class="row"><span>Languages</span><b>PT · EN</b></div>
+      </div>
+      <div class="afoot"><span class="price">from<b>$110</b></span><a class="hire" href="#cta">Hire Agent</a></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="netband" id="network"><div class="wrap sec"><div class="net-grid">
+  <div class="rv">
+    <span class="kick">Global Network Visualization</span>
+    <h2>A living map of the world's energy trade</h2>
+    <p class="lead">Countries, cities, agents, companies, logistics routes and active deals — visualized in real time. Post once, and your listing instantly reaches 100,000+ companies across 190 countries.</p>
+    <div class="livemetrics">
+      <div class="lm"><span class="live"><i></i>LIVE</span><b data-count="8940">0</b><span>Agents online now</span></div>
+      <div class="lm"><span class="live"><i></i>LIVE</span><b data-count="3412">0</b><span>Deals in progress today</span></div>
+      <div class="lm"><b data-count="190" data-suffix="+">0</b><span>Countries of presence</span></div>
+      <div class="lm"><b data-count="150000" data-suffix="+">0</b><span>Cities covered</span></div>
+    </div>
+  </div>
+  <div class="mapbox rv">
+    <svg viewBox="0 0 500 250" id="netmap">
+      <defs>
+        <radialGradient id="node" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#7fb0ff"/><stop offset="100%" stop-color="#1667E6" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g id="dots" fill="#4d78bd" opacity=".5"></g>
+      <g id="arcs" fill="none" stroke="#1667E6" stroke-width="1.1" opacity=".55"></g>
+      <g id="hubs"></g>
+    </svg>
+    <div class="region">
+      <div class="r"><span>Americas</span><span class="bar"><i data-w="42"></i></span><span class="pct">42%</span></div>
+      <div class="r"><span>Europe</span><span class="bar"><i data-w="28"></i></span><span class="pct">28%</span></div>
+      <div class="r"><span>Asia Pacific</span><span class="bar"><i data-w="20"></i></span><span class="pct">20%</span></div>
+      <div class="r"><span>Middle East</span><span class="bar"><i data-w="10"></i></span><span class="pct">10%</span></div>
+    </div>
+  </div>
+</div></div></section>
+
+<section class="sec eco" id="ecosystem"><div class="wrap">
+  <div class="eco-head rv">
+    <div>
+      <span class="kick">One platform · every link in the chain</span>
+      <h2>Not a marketplace.<br>A global energy ecosystem.</h2>
+    </div>
+    <p>From the first equipment listing to final delivery — sourcing, inspection, logistics, repair and settlement live on one connected platform, in every oil &amp; gas city on earth.</p>
+  </div>
+  <div class="bento-feat rv">
+    <a class="bcard blue" href="#features">
+      <span class="bi"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M5 8v10l7 3 7-3V8"/></svg></span>
+      <h3>Global Marketplace</h3>
+      <p>Buy, sell and rent certified oil &amp; gas equipment from verified suppliers in 190+ countries — with an agent to inspect before you pay.</p>
+      <span class="go">Explore the marketplace <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+    <a class="bcard light" href="#agents">
+      <span class="bi"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+      <h3>Agent Network</h3>
+      <p>A verified local representative in every city — to source, inspect, ship and close deals on the ground, wherever you are.</p>
+      <div class="bavs"><div class="row">
+        <span style="background:linear-gradient(135deg,#1667E6,#0B4ED1)">AF</span>
+        <span style="background:linear-gradient(135deg,#12A150,#0c7a3c)">JW</span>
+        <span style="background:linear-gradient(135deg,#F2A017,#D8890A)">WC</span>
+        <span style="background:linear-gradient(135deg,#7c4dff,#5a2ee8)">SM</span>
+      </div><span class="more">+8,940 agents online</span></div>
+    </a>
+  </div>
+  <div class="bento-small rv">
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><b>AI Search</b><span>Smart discovery</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span><b>Companies</b><span>Verified directory</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M4 7h16v12H4zM4 7l4-4h8l4 4M9 12h6"/></svg></span><b>Rental</b><span>Lease equipment</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 21V10M18 21V10M4 10l8-6 8 6M9 21v-5h6v5"/></svg></span><b>Auctions</b><span>Live bidding</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M1 12h4l2 6 4-14 3 8h8"/></svg></span><b>Logistics</b><span>Freight &amp; routes</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg></span><b>Inspection</b><span>Certified checks</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M14 6l4 4-8 8-4 1 1-4z"/><path d="M16 4l4 4"/></svg></span><b>Repair</b><span>Service facilities</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></span><b>Jobs</b><span>Industry careers</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><b>Investors</b><span>Capital &amp; deals</span></div>
+    <div class="scard"><span class="si"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></span><b>Forum</b><span>Pro community</span></div>
+  </div>
+</div></section>
+
+<section class="sec" id="plans"><div class="wrap">
+  <div class="sec-head center rv">
+    <span class="kick">Membership</span>
+    <h2>Choose your level of access</h2>
+    <p>From free discovery to full enterprise power — one account, every role, instant switching.</p>
+  </div>
+  <div class="plans">
+    <div class="plan rv"><div class="pname">Free</div><div class="pdesc">Explore the ecosystem</div><div class="price-row"><span class="amt">$0</span><span class="per">/mo</span></div><ul><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Browse companies &amp; equipment</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Basic AI search</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>1 listing</li></ul><a class="pbtn" href="#cta">Start Free</a></div>
+    <div class="plan pop rv"><span class="badge">POPULAR</span><div class="pname">Premium</div><div class="pdesc">For active traders</div><div class="price-row"><span class="amt">$49</span><span class="per">/mo</span></div><ul><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Everything in Free</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Unlimited listings</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Auctions &amp; tenders access</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Verified badge</li></ul><a class="pbtn" href="#cta">Go Premium</a></div>
+    <div class="plan rv"><div class="pname">Business</div><div class="pdesc">For companies &amp; teams</div><div class="price-row"><span class="amt">$199</span><span class="per">/mo</span></div><ul><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Everything in Premium</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Multi-role dashboard</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Analytics &amp; KPI center</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Priority support</li></ul><a class="pbtn" href="#cta">Choose Business</a></div>
+    <div class="plan vip rv"><span class="vipbadge">VIP</span><div class="pname">VIP Enterprise</div><div class="pdesc">Global scale &amp; influence</div><div class="price-row"><span class="amt">Custom</span></div><ul><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Everything in Business</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Featured global placement</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>Dedicated agent network</li><li><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></svg>White-label &amp; API</li></ul><a class="pbtn" href="#cta">Contact Sales</a></div>
+  </div>
+</div></section>
+
+<section class="sec trust"><div class="wrap">
+  <div class="trust-grid">
+    <div class="tcard rv"><span class="ti"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div><b>Secure &amp; Verified</b><p>Every company and document passes the Verification Center before going live.</p></div></div>
+    <div class="tcard rv"><span class="ti"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><div><b>Transparent &amp; Reliable</b><p>Real ratings, real deals, real data — trust levels and badges you can see.</p></div></div>
+    <div class="tcard rv"><span class="ti"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span><div><b>Global Support 24/7</b><p>Local experts and instant notifications keep every deal moving, around the clock.</p></div></div>
+  </div>
+  <div class="logos-lbl rv">Trusted by industry leaders worldwide</div>
+  <div class="logos rv"><span>aramco</span><span>ExxonMobil</span><span>bp</span><span>Shell</span><span>TotalEnergies</span><span>Chevron</span><span>PETRONAS</span><span>Saudi Aramco</span></div>
+</div></section>
+
+<section class="cta"><div class="wrap"><div class="cta-in rv">
+  <h2>Join the world's most connected oil &amp; gas ecosystem</h2>
+  <p>Create a free account and instantly reach 100,000+ companies across 190 countries with one listing.</p>
+  <div class="cta-btns">
+    <a class="b1" href="#top">Create Free Account <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <a class="b2" href="#network">Explore Global Marketplace</a>
+  </div>
+</div></div></section>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a class="brand" href="#top"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#fff" stroke-width="1.5"/><path d="M3 11h16M11 3c2.4 2.3 3.6 5.1 3.6 8S13.4 16.7 11 19c-2.4-2.3-3.6-5.1-3.6-8S8.6 5.3 11 3z" stroke="#fff" stroke-width="1.3"/><path d="M18.6 13.4c1.6 1.9 2.3 3.2 2.3 4.4a2.35 2.35 0 11-4.7 0c0-1.2.8-2.5 2.4-4.4z" fill="#F2A017" stroke="#fff" stroke-width=".8"/></svg></span><span class="bt"><b>WOP</b><span style="color:#8ea3bf">WORLD OIL PORTAL</span></span></a>
+      <p class="fdesc">The international digital ecosystem for the oil &amp; gas industry — equipment, logistics, services and a worldwide network of local agents.</p>
+    </div>
+    <div class="fcol"><h4>Platform</h4><a href="#">Marketplace</a><a href="#">Auctions</a><a href="#">Logistics</a><a href="#">Tenders</a><a href="#">Agents</a></div>
+    <div class="fcol"><h4>Company</h4><a href="#">About</a><a href="#">Verification</a><a href="#">Investors</a><a href="#">News</a><a href="#">Forum</a></div>
+    <div class="fcol"><h4>Support</h4><a href="#">Help Center</a><a href="#">Contact</a><a href="#">Enterprise Access</a><a href="#">API</a></div>
+  </div>
+  <div class="foot-bot">
+    <span>© 2026 World Oil Portal · Global Energy, Logistics &amp; Agent Hub</span>
+    <span class="langs"><a href="#">EN</a><a href="#">ES</a><a href="#">فارسی</a><a href="#">বাংলা</a></span>
+  </div>
+</div></footer>
+
+<!-- fallback + interactions (regular script) -->
+<script>
+(function(){
+  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // reveal
+  var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+  // counters
+  function fmt(n){return n.toLocaleString('en-US');}
+  function animCount(el){
+    var target=+el.dataset.count, suf=el.dataset.suffix||'', dur=1500, t0=null;
+    if(rm){el.textContent=fmt(target)+suf;return;}
+    function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/dur,1);var e=1-Math.pow(1-p,3);
+      el.textContent=fmt(Math.floor(target*e))+suf;if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  }
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){animCount(e.target);cio.unobserve(e.target);}});},{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+  // region bars
+  var rio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.querySelectorAll('[data-w]').forEach(function(i){i.style.width=i.dataset.w+'%';});rio.unobserve(e.target);}});},{threshold:.4});
+  document.querySelectorAll('.region').forEach(function(el){rio.observe(el);});
+  // tender timers
+  function tick(){
+    document.querySelectorAll('[data-timer]').forEach(function(el){
+      var s=+el.dataset.timer; if(s<=0){el.textContent='Closed';return;}
+      s--; el.dataset.timer=s;
+      var d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60);
+      el.textContent=('0'+d).slice(-2)+'d '+('0'+h).slice(-2)+'h '+('0'+m).slice(-2)+'m';
+    });
+  }
+  setInterval(tick,1000);
+  // netmap dots (equirect-ish scatter) + arcs
+  (function(){
+    var dots=document.getElementById('dots'), arcs=document.getElementById('arcs'), hubs=document.getElementById('hubs');
+    if(!dots)return;
+    // simple continent-ish clusters as dot field
+    var W=500,H=250, pts=[], seedRegions=[[70,90,60,40],[150,70,60,40],[240,60,60,60],[300,95,70,55],[360,90,60,55],[410,150,50,40],[120,150,55,45]];
+    for(var i=0;i<430;i++){
+      var r=seedRegions[i%seedRegions.length];
+      var x=r[0]+(Math.random()-0.5)*r[2], y=r[1]+(Math.random()-0.5)*r[3];
+      if(x<6||x>W-6||y<6||y>H-6)continue;
+      pts.push([x,y]);
+    }
+    var frag='';
+    pts.forEach(function(p){frag+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="1.5"/>';});
+    dots.innerHTML=frag;
+    // hubs = key cities
+    var cities=[[80,95],[150,80],[250,70],[300,100],[360,95],[410,150],[430,120]];
+    var hf='';
+    cities.forEach(function(c,i){
+      hf+='<circle cx="'+c[0]+'" cy="'+c[1]+'" r="9" fill="url(#node)"/>';
+      hf+='<circle cx="'+c[0]+'" cy="'+c[1]+'" r="2.6" fill="#cfe0fa"><animate attributeName="r" values="2.6;4.2;2.6" dur="'+(2+i*0.3)+'s" repeatCount="indefinite"/></circle>';
+    });
+    hubs.innerHTML=hf;
+    var af='';
+    for(var j=0;j<cities.length-1;j++){
+      var a=cities[j],b=cities[j+1], mx=(a[0]+b[0])/2, my=Math.min(a[1],b[1])-30;
+      af+='<path d="M'+a[0]+' '+a[1]+' Q'+mx+' '+my+' '+b[0]+' '+b[1]+'"/>';
+    }
+    // a couple long arcs
+    af+='<path d="M80 95 Q200 10 360 95"/><path d="M150 80 Q280 30 430 120"/>';
+    arcs.innerHTML=af;
+  })();
+  // magnetic buttons
+  if(!rm){
+    document.querySelectorAll('.btn-primary,.b1').forEach(function(b){
+      b.addEventListener('mousemove',function(e){var r=b.getBoundingClientRect();
+        b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.18)+'px,'+((e.clientY-r.top-r.height/2)*.28-1)+'px)';});
+      b.addEventListener('mouseleave',function(){b.style.transform='';});
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
